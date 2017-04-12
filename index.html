@@ -6,7 +6,6 @@
  <title> Hangman HW </title>
 <!--  For responsivnes/media query -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!--  Reset CSS -->
 <link rel="stylesheet" href="assets/css/reset.css">
 <!-- Bootstrap CSS -->
@@ -15,80 +14,85 @@
 <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
 <!-- My CSS -->
 <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 
 
 
 <body>
-
-<div class="container">
-  <div class="jumbotron">
-    <h1>Friends hangman</h1>
-    <p>Press any key to start playing</p>
-  </div>
-  <p id="chooseWord">This is some text.</p>
-  <p>This is another text.</p>
-</div>
-
-<div id="saves" class="row">
-                <div class="col-md-12">                         
-                    <div class="row">
-                        <div class="col-md-12 center">
-                            <h2> Friends characters you guessed </h2>
-                            <div id="answer" class="displayOff"><h3></h3></div> 
-                        </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1> ... A hangman GAME</h1>
+            <p><strong>Press any key to start playing</p>
+        </div>
+        <p class="chooseWord"> Try to guess the hidden word :) </p>
+        <p>Guesses Left: <span id="guesses-left"></span></p>
+        <p>Wrong Guesses: <span id="wrong-guesses"></span></p>
+        <p>Wins: <span id="win-counter"></span></p>
+        <p>Losses: <span id="loss-counter"></span></p>
+        <h3 id="word-blank"></h3>
+        <p class="blanks"> This class is holding the empty undersocres</p>
+    </div>
+    <div id="saves" class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 center">
+                    <h2> Friends characters you guessed </h2>
+                    <div id="answer" class="displayOff">
+                        <h3></h3></div>
+                </div>
+            </div>
+            <div class="row imgGrid">
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="rachel" src="assets/images/rachel.jpg" class="displayOff" alt="">
                     </div>
-                    <div class="row imgGrid">
-                        <div class="col-md-3">
-                            <div class="img-placeholder">
-                                <img id="rachel" src="assets/images/rachel.jpg" class="displayOff" alt="">
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-placeholder">
-                                <img id="ross" src="assets/images/ross.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-placeholder">
-                                <img id="monica" src="assets/images/monica.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-placeholder">
-                                <img id="chandler" src="assets/images/chandler.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
+                    <br>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="ross" src="assets/images/ross.jpg" class="displayOff" alt="">
                     </div>
-                    <div class="row imgGrid">
-                        <div class="col-md-3">
-                            <div class="img-placeholder">
-                                <img id="phoebe" src="assets/images/phoebe.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div  class="img-placeholder">
-                                <img id="janice" src="assets/images/janice.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div  class="img-placeholder">
-                                <img id="joey" src="assets/images/joey.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div  class="img-placeholder">
-                                <img id="gunther" src="assets/images/gunther.jpg" class="displayOff" alt="">
-                            </div>
-                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="monica" src="assets/images/monica.jpg" class="displayOff" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="chandler" src="assets/images/chandler.jpg" class="displayOff" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row imgGrid">
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="phoebe" src="assets/images/phoebe.jpg" class="displayOff" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="janice" src="assets/images/janice.jpg" class="displayOff" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="joey" src="assets/images/joey.jpg" class="displayOff" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-placeholder">
+                        <img id="gunther" src="assets/images/gunther.jpg" class="displayOff" alt="">
                     </div>
                 </div>
             </div>
         </div>
-
-<!--  javascript link in my assets folder  -->
-<script type="text/javascript" src="assets/javascript/game.js"></script>
-
+    </div>
+    </div>
+    <!--  javascript link in my assets folder  -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
+
 </html>

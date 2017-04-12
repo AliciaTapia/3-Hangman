@@ -10,97 +10,123 @@
 //6.    Show the player their progress.
 //7.    Finish when the player has guessed the word.variables 
 
-// 2. var answerArray = [];
-var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+// // 2. var answerArray = [];
+
 var words = ["rachel","monica","chandler","ross","janice", "phoebe", "joey","gunther"];
-var answerWord= null;
-var userGuess= null;
-
-var chances= 10;
-var points=0;
-
-var letterArray=[];
-
+var chosenWord= null;
 var letterUsed =[];
+var numBlanks = 0;
+var blanksAndSuccesses=[];
 
-var userWin=false;
-var gameOver= false;
+var winCounter=0;
+var lossCounter= 0;
+var userGuesses= 9;
+var wrongGuesses = [];
 
 
-document.onkeyup = function(event){ 
-	// console.log(event.key); (my comments ........)
-	// Determines which exact key was selected. Make it lowercase
-	    // var userGuess = String.fromCharCode(event.keycode).toLowerCase();
-	    userGuess = event.key;
-	   console.log(userGuess);
+function startGame(){
+
+//  1. select a word at random
+chosenWord = words[Math.floor(Math.random() * words.length)];
+
+// 2. want to break up that random word into letters and replace them with underscores
+lettersInChosenWord = chosenWord.split("");
+numBlanks = lettersInChosenWord.length;
+
+for(var i = 0; i < numBlanks; i++){
+    blanksAndSuccesses.push("_");
 }
-// First I want to make sure that the picked letter is contained in the randomly chosen word ...
-// 1. Will pick a random word to start the game ....
-var chooseWord= words[Math.floor(Math.random() * words.length)];
-// function chooseWord () {
-//     return words[Math.floor(Math.random() * words.length)];
-// 		}
-// var x = chooseWord();
-// console.log(x);
-console.log(chooseWord);
 
-// 2. This will help me to put blanks on the lenght of the randomly chosen word
+//3. we want to add those underscores to the HTML
+$('.blanks').html(blanksAndSuccesses.join(" "));
 
-	// for (var i = 0; i < words.length; i++) {
-	// 		answerArray[i] = "_";
-	// 	}
+//4. numguesses always equals 9, and blankandsuccess is an empty array, 
+//and wronggueses is empty as well
+userGuesses= 9;
+blanksAndSuccesses=[];
+wrongGueses = [];
 
+console.log(chosenWord);
+console.log(lettersInChosenWord);
+console.log(numBlanks);
+console.log(blanksAndSuccesses);
 
-// gives number of blanks that corresponds to the randomly chosen word 
-function blanksFromAnswer (randomWord) {  
-    var result = ""; 
-    for (var i = 0; i < randomWord.length; i++) {
-    // for ( i in randomWord ) {
-        result = "_ " + result; 
-        }
-        return result;
-    
-  
 }
+
+
+function checkLetters(letter){
  
-var underScore =blanksFromAnswer(chooseWord);
-console.log(underScore);
-    // $("#chooseWord").html(result);
-   
+//1. Compare the letter the user picks matches any of the letters in the word
+ var letterInWord = false;
 
-function loopWord(){
-	//compare();
-	for (var i=0; i < chooseWord.length; i++) {
-		if (userGuess === chooseWord[i]){
-			letterArray.push(userGuess);
-			$("#chooseWord").text(letterArry.join(""));
-		}
-		console.log("results of loopWord" + letterArray);
-	// 	else()
-	}
+    for(var i = 0; i < numBlanks; i++){
+        if(chosenWord[i] === letter){
+            letterInWord = true;
+        }
+    }
+    //2. I want a conditional statement to determine if the letter the user picked
+	//is in the word. If so, do something, if not, do something else
+    if(letterInWord){
+        for(i = 0; i < numBlanks; i++){
+            if(chosenWord[i] === letter){
+            blanksAndSuccesses[i] = letter;
+
+        }
+
+        }
+    //3. If the user is wrong we want to decrease the numGuesses variables by one    
+    }else{
+        userGuesses --;
+        wrongGuesses.push(letter)
+    }
+
+    /*
+    to check if a letter is already in the wrong guesses array. What we want to do
+    is set up an if/else conditional that will run a for loop that will iterate over
+    all the letters and then use the if/else to check if it it already exists.
+
+    */
 }
 
-function compare(){
-	for ( var i=0; i<letterUsed.length; i++){
-		if(userGuess===letterUsed [i]){
-			console.log("letter already used");
+function roundComplete(){
+    /*
+    1. Its going to update the HTML with letters that are in the word
+    2. Its going to update the HTML with guesses we have left
+    3. Its going to update the HTML to show the wrong guesses
+    4. Its going to determine whether the use won the game or not
+    */
 
-		}
-		else{
-			letterUsed.push(userGuess);
-		}
-	}
+    $('.blanks').html(blanksAndSuccesses.join(" "));
+    document.getElementById('guesses-left').innerHTML = userGuesses;
+    document.getElementById('wrong-guesses').innerHTML = wrongGuesses.join(" ");
+
+
+    if(lettersInChosenWord.join(" ") === blanksAndSuccesses.join(" ")){
+        winCounter++;
+        alert("You win!!");
+        document.getElementById('win-counter').innerHTML = winCounter;
+       startGame();
+    }else if(userGuesses === 0){
+        document.getElementById('loss-counter').innerHTML  = lossCounter ++;
+        document.getElementById('wrong-guesses').innerHTML = "";
+        alert("you don't have any more guesses");
+        startGame();        
+      
+    }
+
 }
 
-// checks if the user has loss
-function checkGameOver() {
-	if(chances <= 0) {
-		console.log("game over");
-		gameOver = true;
-	}
+startGame();
+
+document.onkeyup = function(event){
+    /*
+    1. it going to take in the letter that we type in
+    2. its going to pass it through the CheckLetter function 
+    */
+    var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+    console.log("this is the letter we typed", letterGuessed)
+    checkLetters(letterGuessed)
+    roundComplete();
+
 }
-
-
-
-
 

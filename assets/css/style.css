@@ -3,3 +3,29 @@ img{
 	width: 150px;
 	height: 150px;
 }
+
+.jumbotron{
+	
+	background-image:url(../images/friends.jpg);
+	background-position:center;
+	height: 300px;
+}
+
+
+.jumbotron .h1, .jumbotron h1 {
+    font-size: 33px;
+	text-align: center;
+	padding-top: 130px;
+	font-style: italic;
+	color:#CEB132;
+}
+
+.jumbotron p {
+	color:#134B58;
+	
+}
+
+
+body {
+	background-image: url(../images/backg.jpeg);
+}
